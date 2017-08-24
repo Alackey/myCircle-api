@@ -28,6 +28,14 @@ namespace myCircle_api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            // Docker-compose Host changes
+            if (Environment.GetEnvironmentVariable("DOCKER_COMPOSE_ENABLED") != null)
+            {
+                string dbMain = Configuration.GetSection("ConnectionStrings:Main").Value;
+                string end = dbMain.Substring(16);
+                Configuration.GetSection("ConnectionStrings:Main").Value = dbMain.Substring(0, 7) + "sqlproxy" + end;
+            }
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

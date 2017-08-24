@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  api:
+    build: ./myCircle-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:80"
+    stdin_open: true
+    tty: true
+  sqlproxy:
+    image: "gcr.io/cloudsql-docker/gce-proxy:1.10"
+    ports: 
+      - "3306:3306"
+    volumes:
+      - "$PWD:/config"
+    command: ["/cloud_sql_proxy", "-instances=${SQLPROXY_INSTANCE_NAME}=tcp:0.0.0.0:3306", "-credential_file=/config/gcloud-sqlproxy-key.json"]

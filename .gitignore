@@ -1,6 +1,8 @@
 appsettings.Development.json
 appsettings.Production.json
 
+gcloud-sqlproxy-key.json
+
 .DS_Store
 
 
