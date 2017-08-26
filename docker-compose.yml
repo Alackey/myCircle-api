@@ -4,6 +4,7 @@ services:
     build: ./myCircle-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - DOCKER_COMPOSE_ENABLED=True
     ports:
       - "5000:80"
     volumes:
